@@ -15,12 +15,23 @@
   </head>
   <body>
     <div ng-controller="IntroController">
-      <div ng-repeat="button in teamNum">
-        <button >{{someButtonNumber}}</button>
+      <div ng-repeat="number in teamArray" class="btnBox">
+          <button class="btnTeams" ng-click="numGroups(number)">{{number}}</button>
       </div>
-      <div ng-repeat="student in allStudents">
-        <p>{{student.name}}</p>
+      <div>
+        <button class="refresh" ng-click="refresh()">Refresh</button>
+      </div>
 
+
+      <div ng-repeat="group in groupHolder">
+        <div class="group">
+          <p>Group</p>
+          <div ng-repeat="person in group" class="group">
+            <div >
+              <p>{{ person }}</p>
+            </div>
+          </div>
+      </div>
 
       </div>
 
