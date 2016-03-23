@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8" />
+    <title>First Angular app</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="/assets/styles/style.css" />
+
+    <!-- SCRIPT -->
+    <script type="text/javascript" src="/assets/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/app.js"></script>
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="/assets/styles/style.css" />
+  </head>
+  <body>
+    <div ng-controller="IntroController">
+
+      <div ng-repeat="student in allStudents">
+        <p>{{student.name}}</p>
+
+
+      </div>
+
+    </div>
+  </body>
+</html>
