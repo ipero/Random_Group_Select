@@ -15,7 +15,9 @@
   </head>
   <body>
     <div ng-controller="IntroController">
-
+      <div ng-repeat="button in teamNum">
+        <button >{{someButtonNumber}}</button>
+      </div>
       <div ng-repeat="student in allStudents">
         <p>{{student.name}}</p>
 
