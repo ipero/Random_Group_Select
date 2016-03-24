@@ -6,16 +6,27 @@ body {
   display: inline-block;
   float:left;
   margin-right: 10px;
+  font-size: 16px;
+  padding: 5px;
 
+}
+.btnTeams:active {
+  background-color: #ccc;
 }
 .group {
   width: 200px;
-  min-height: 150px;
+  min-height: 170px;
   display: inline;
   float: left;
   margin: 20px;
 
 
+}
+.refresh {
+  font-size: 16px;
+  padding: 5px;
+  background-color: #911;
+  color: white;
 }
 .group p {
   padding: 3px;
@@ -28,4 +39,5 @@ body {
 .btnBox {
   width: 500px;
   margin: 50px auto;
+
 }

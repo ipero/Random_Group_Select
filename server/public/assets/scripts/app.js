@@ -1,24 +1,26 @@
 var myApp = angular.module('myApp', []);
 var teamNum;
-var setButtonArray = [];
 var studentsArrayHolder = ["Enrique", "Tracey", "Carl", "Joette", "Jeremy", "Kenzie",
 "Aaron", "Evan", "Biz", "Brady", "Roman", "Thomas", "Miles", "Michelle", "Neil",
 "Hank", "Mike", "Mark", "Riley", "Matthew"];
 
 
 myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
-  $scope.groupHolder = [];
-  $scope.employeeArray = [];
-  $scope.teamArray = [];
-  $scope.students = [];
-  $scope.allStudents = studentsArrayHolder;
   $scope.newArrayOfArray = [];
-  //to hold temporarily number of teams selected
-  $scope.numOfTeams = 0;
+  //holds array of buttons number
+  $scope.teamArray = [];
+
+  $scope.allStudents = studentsArrayHolder;
+
+  $scope.allStudents = [];
+  for(var i = 0; i < studentsArrayHolder.length; i++){
+    $scope.allStudents.push(studentsArrayHolder[i]);
+  }
+
   //get possible team Number
-  teamNum = Math.floor(studentsArrayHolder.length/2);
+  teamNum = Math.floor($scope.allStudents.length/2);
 
-
+  //set buttons
   function setButton(value){
     var counter = 1;
     while (counter<=teamNum){
@@ -27,44 +29,40 @@ myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
     }
     $scope.teamArray.shift();
   }
+  //generate buttons base on team number
   setButton(teamNum);
 
+  //regenerate students to teams
   $scope.refresh = function(){
-    $scope.allStudents = studentsArrayHolder;
-    console.log(studentsArrayHolder, $scope.numOfTeams);
+    $scope.allStudents = [];
+    $scope.newArrayOfArray = [];
+
+    for(var i = 0; i < studentsArrayHolder.length; i++){
+      $scope.allStudents.push(studentsArrayHolder[i]);
+    }
+
     $scope.numGroups($scope.numOfTeams);
   }
 
+  //generate groups with students
   $scope.numGroups = function(number){
     $scope.numOfTeams = number;
     $scope.allStudents = shuffleArray($scope.allStudents);
-    console.log(studentsArrayHolder);
+
     var peoplePerGroup = Math.ceil(studentsArrayHolder.length/number);
 
-    //var counter = 1;
-    // while(counter <= number){
-    //   var group = [];
-    //   for (var i=1; i<=peoplePerGroup; i++){
-    //     if($scope.allStudents[0]){
-    //       console.log("I'm here in ");
-    //       group.push($scope.allStudents.pop());
-    //     }
-    //   }
-    //   $scope.groupHolder.push(group);
-    //   counter++;
-    // }
     for(var i=0; i<peoplePerGroup; i++){
       for(var j=0; j<number; j++){
         if($scope.allStudents[0]){
+
           //Because we cannot directly declare multidimension arrays in JS
-          //We first need to assign empty array to "falsy" to falsy element of $scope.newArrayOfArray
+          //We first need to assign empty array to "falsy" element of $scope.newArrayOfArray
           if (!$scope.newArrayOfArray[j]){
             $scope.newArrayOfArray[j] = [];
           }
           $scope.newArrayOfArray[j][i] = $scope.allStudents.pop();
         }
       }
-
     }
 
   }

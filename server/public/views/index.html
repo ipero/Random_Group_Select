@@ -15,9 +15,11 @@
   </head>
   <body>
     <div ng-controller="IntroController">
+
       <div ng-repeat="number in teamArray" class="btnBox">
           <button class="btnTeams" ng-click="numGroups(number)">{{number}}</button>
       </div>
+      
       <div>
         <button class="refresh" ng-click="refresh()">Refresh</button>
       </div>
