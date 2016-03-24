@@ -2,8 +2,8 @@ var myApp = angular.module('myApp', []);
 var teamNum;
 var setButtonArray = [];
 var studentsArrayHolder = ["Enrique", "Tracey", "Carl", "Joette", "Jeremy", "Kenzie",
-"Aaron", "Evan", "Biz", "Brady", "Roman", "Thomas", "Miles", "Michelle", "Neil", "Hank", "Mike",
-"Mark", "Riley", "Matthew"];
+"Aaron", "Evan", "Biz", "Brady", "Roman", "Thomas", "Miles", "Michelle", "Neil",
+"Hank", "Mike", "Mark", "Riley", "Matthew"];
 
 
 myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
@@ -13,18 +13,11 @@ myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
   $scope.students = [];
   $scope.allStudents = studentsArrayHolder;
   $scope.newArrayOfArray = [];
+  //to hold temporarily number of teams selected
+  $scope.numOfTeams = 0;
+  //get possible team Number
+  teamNum = Math.floor(studentsArrayHolder.length/2);
 
-
-  $scope.getData = function(){
-       $http.get("/students").then(function(response){
-         //$scope.allStudents = response.data.students;
-
-         teamNum= Math.floor(studentsArrayHolder.length/2);
-         setButton(teamNum);
-       });
-
-  }
-  $scope.getData();
 
   function setButton(value){
     var counter = 1;
@@ -32,14 +25,22 @@ myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
       $scope.teamArray.push(counter);
       counter++;
     }
+    $scope.teamArray.shift();
   }
+  setButton(teamNum);
+
+  $scope.refresh = function(){
+    $scope.allStudents = studentsArrayHolder;
+    console.log(studentsArrayHolder, $scope.numOfTeams);
+    $scope.numGroups($scope.numOfTeams);
+  }
+
   $scope.numGroups = function(number){
-
+    $scope.numOfTeams = number;
     $scope.allStudents = shuffleArray($scope.allStudents);
-    //console.log($scope.allStudents);
-
+    console.log(studentsArrayHolder);
     var peoplePerGroup = Math.ceil(studentsArrayHolder.length/number);
-    console.log(peoplePerGroup);
+
     //var counter = 1;
     // while(counter <= number){
     //   var group = [];
@@ -63,9 +64,12 @@ myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
           $scope.newArrayOfArray[j][i] = $scope.allStudents.pop();
         }
       }
+
     }
-    console.log($scope.newArrayOfArray);
+
   }
+
+  //function to shuffle array randomly
   function shuffleArray(array){
     for (var i = array.length - 1; i>0; i--){
       var j = Math.floor(Math.random()*(i + 1));

@@ -25,8 +25,8 @@
 
       <div ng-repeat="group in newArrayOfArray">
         <div class="group">
-          <p>Group</p>
-          <div ng-repeat="person in group" class="group">
+          <p class="group-num">Group {{$index+1}}</p>
+          <div ng-repeat="person in group">
             <div >
               <p>{{ person }}</p>
             </div>
