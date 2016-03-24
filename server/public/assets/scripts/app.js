@@ -35,28 +35,35 @@ myApp.controller('IntroController', ['$scope', '$http', function($scope, $http){
   }
   $scope.numGroups = function(number){
 
-    studentsArrayHolder = shuffleArray($scope.allStudents);
+    $scope.allStudents = shuffleArray($scope.allStudents);
+    //console.log($scope.allStudents);
 
     var peoplePerGroup = Math.ceil(studentsArrayHolder.length/number);
-    var counter = 1;
-    while(counter <= number){
-      var group = [];
-      for (var i=1; i<=peoplePerGroup; i++){
-        if($scope.allStudents[0]){
-          console.log("I'm here in ");
-          group.push($scope.allStudents.pop());
-        }
-      }
-      $scope.groupHolder.push(group);
-      counter++;
-    }
-    // for(var i=0; i<peoplePerGroup; i++){
-    //   for(var j=0; j<number; j++){
+    console.log(peoplePerGroup);
+    //var counter = 1;
+    // while(counter <= number){
+    //   var group = [];
+    //   for (var i=1; i<=peoplePerGroup; i++){
     //     if($scope.allStudents[0]){
-    //       $scope.newArrayOfArray[j][i]=$scope.allStudents.pop();
+    //       console.log("I'm here in ");
+    //       group.push($scope.allStudents.pop());
     //     }
     //   }
+    //   $scope.groupHolder.push(group);
+    //   counter++;
     // }
+    for(var i=0; i<peoplePerGroup; i++){
+      for(var j=0; j<number; j++){
+        if($scope.allStudents[0]){
+          //Because we cannot directly declare multidimension arrays in JS
+          //We first need to assign empty array to "falsy" to falsy element of $scope.newArrayOfArray
+          if (!$scope.newArrayOfArray[j]){
+            $scope.newArrayOfArray[j] = [];
+          }
+          $scope.newArrayOfArray[j][i] = $scope.allStudents.pop();
+        }
+      }
+    }
     console.log($scope.newArrayOfArray);
   }
   function shuffleArray(array){
